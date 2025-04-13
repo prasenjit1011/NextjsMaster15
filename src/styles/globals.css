@@ -1,4 +1,25 @@
+@import "tailwindcss";
+
 h1{
   color: #FFF;
   font-size: small;
+}
+.bodylayout{
+  background-color:#FFF;
+  margin:0px;
+}
+
+.layout{
+  border:1px solid #000;
+  background-color:#24d12c;
+  margin:0px;
+  padding:0px;
+}
+
+.content{
+  border:1px solid #000;
+  background-color:#044;
+  margin:10px;
+  padding:5px;
+  height:97vh;
 }
