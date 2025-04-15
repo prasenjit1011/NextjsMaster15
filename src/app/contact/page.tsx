@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [form, setForm] = useState({ name: 'Test', email: 'test@admin.com', message: 'Dummy Txt dummy txt' });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -16,7 +16,9 @@ export default function ContactPage() {
     setLoading(true);
 
     try {
-      const res = await fetch('https://dummyjson.com/posts/add', {
+      const apiUrl = 'http://localhost:3000/items';
+      //const apiUrl = 'https://dummyjson.com/posts/add';
+      const res = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -27,7 +29,7 @@ export default function ContactPage() {
       const data = await res.json();
       console.log('Submitted:', data);
       setSubmitted(true);
-      setForm({ name: '', email: '', message: '' });
+      //setForm({ name: '', email: '', message: '' });
     } catch (error) {
       console.error('Error submitting form:', error);
     }
@@ -42,7 +44,7 @@ export default function ContactPage() {
 
 
         {submitted && (
-          <div className="p-4 mb-4 text-green-700 bg-green-100 rounded">
+          <div className="p-4 mb-4 text-green-700 bg-green-100 rounded" data-cy="success-message">
             ✅ Your message has been sent!
           </div>
         )}
@@ -59,6 +61,7 @@ export default function ContactPage() {
     <input
       type="text"
       name="name"
+      data-cy="input-name"
       id="name"
       placeholder="John Doe"
       className="w-full px-4 py-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
@@ -75,6 +78,7 @@ export default function ContactPage() {
     <input
       type="email"
       name="email"
+      data-cy="input-email"
       id="email"
       placeholder="john@example.com"
       className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
@@ -92,6 +96,7 @@ export default function ContactPage() {
     <textarea
   name="message"
   id="message"
+  data-cy="input-message"
   placeholder="Write your message here..."
   className="w-full px-4 py-2 border border-gray-300 rounded-md h-32 resize-none bg-white text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
   value={form.message}
@@ -103,6 +108,7 @@ export default function ContactPage() {
 
   <button
     type="submit"
+    data-cy="submit-button"
     disabled={loading}
     className="w-full bg-blue-600 text-white font-medium py-3 rounded-md hover:bg-blue-700 transition disabled:opacity-50"
   >
