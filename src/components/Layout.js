@@ -14,7 +14,7 @@ export default function Layout({ children }) {
             <Link href="/">My Site Logo</Link>
           </li>
           <li className="hover:text-blue-600 cursor-pointer">
-            <Link href="/">Home</Link>
+            <Link href="/">Home | {parseInt(100*Math.random())}</Link>
           </li>
           <li className="hover:text-blue-600 cursor-pointer">
             <Link href="/about">About Myself</Link>
@@ -58,6 +58,15 @@ export default function Layout({ children }) {
             <ul className="absolute left-0 mt-1 bg-white text-black rounded shadow-md w-40 z-50 hidden group-hover:flex flex-col">
               <li className="hover:bg-gray-200 p-2 rounded">
                 <Link href="/dummyjson/products">Api Data</Link>
+              </li>
+              <li className="hover:bg-gray-200 p-2 rounded">
+                <Link href="/dummyjson/prodlist">Api Data</Link>
+              </li>
+              <li className="hover:bg-gray-200 p-2 rounded">
+                <Link href="/dummyjson/itemlist">Api Data</Link>
+              </li>
+              <li className="hover:bg-gray-200 p-2 rounded">
+                <Link href="/dummyjson/prod">Prod</Link>
               </li>
             </ul>
           </li>

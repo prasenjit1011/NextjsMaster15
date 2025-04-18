@@ -17,6 +17,11 @@ export async function getProduct() {
 export default async function Home() {
   console.clear();
   const data = await getProduct();
+
+  const memoryUsage = process.memoryUsage();
+  console.log('Memory Usage:', memoryUsage);
+
+
   return (
     <div className="content">
       <h1>

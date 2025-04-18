@@ -74,3 +74,18 @@ h1{
   height: auto;
   object-fit: cover;
 }
+
+
+.btnA{
+  margin: 25px;
+  padding: 5px;
+  color: #000;
+  background-color: burlywood;
+}
+
+.btnB{
+  margin: 25px;
+  padding: 5px;
+  color: #000;
+  background-color: bisque;
+}
