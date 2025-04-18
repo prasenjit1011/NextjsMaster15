@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Empdata from "./empData";
 
 export async function getUser() {
   const apiUrl = 'https://dummyjson.com/users';
@@ -14,6 +15,7 @@ export default async function ServerEmployee() {
   return (
     <div className="content">
       <h1>Server Employee page in pages folder </h1>
+      <Empdata />
       <div style={{padding:'10px' }}>
         {
           data?.users &&

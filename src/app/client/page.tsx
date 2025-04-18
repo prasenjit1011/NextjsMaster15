@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import useSWR from "swr";
+import Empdata from "../server/empData";
 
 const fetcher = (url) => fetch(url).then(res => res.json());
 
@@ -15,6 +16,7 @@ export default function ClientUser() {
   return (
     <div className="content">
       <h1>Client User page in pages folder </h1>
+      <Empdata />
       <div style={{padding:'10px' }}>
         {
           data?.users &&
