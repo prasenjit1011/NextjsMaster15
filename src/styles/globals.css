@@ -75,6 +75,12 @@ h1{
   object-fit: cover;
 }
 
+button{
+  margin: 25px;
+  padding: 5px;
+  color: #000;
+  background-color: burlywood;
+}
 
 .btnA{
   margin: 25px;

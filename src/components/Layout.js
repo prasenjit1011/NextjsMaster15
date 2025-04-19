@@ -14,7 +14,7 @@ export default function Layout({ children }) {
             <Link href="/">My Site Logo</Link>
           </li>
           <li className="hover:text-blue-600 cursor-pointer">
-            <Link href="/">Home | {parseInt(100*Math.random())}</Link>
+            <Link href="/">Home </Link>
           </li>
           <li className="hover:text-blue-600 cursor-pointer">
             <Link href="/about">About Myself</Link>
@@ -51,7 +51,15 @@ export default function Layout({ children }) {
             <Link href="/contact">Contact</Link>
           </li>
           <li className="hover:text-blue-600 cursor-pointer">
-            <Link href="/login">Login/Signup</Link>
+            <Link href="/login">Login/Signup...</Link>
+          </li>
+          <li className="relative group">
+            <span className="cursor-pointer hover:text-blue-600 block">Example</span>
+            <ul className="absolute left-0 mt-1 bg-white text-black rounded shadow-md w-40 z-50 hidden group-hover:flex flex-col">
+              <li className="hover:bg-gray-200 p-2 rounded">
+                <Link href="/example/use-reducer">useReducer</Link>
+              </li>
+            </ul>
           </li>
           <li className="relative group">
             <span className="cursor-pointer hover:text-blue-600 block">Api Data</span>
@@ -70,6 +78,11 @@ export default function Layout({ children }) {
               </li>
             </ul>
           </li>
+          <li className="hover:text-blue-600 cursor-pointer">
+            <Link href="/userinfo">Redux</Link>
+          </li>
+
+          
         </ul>
       </header>
 
