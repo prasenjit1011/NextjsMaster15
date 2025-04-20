@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +28,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div style={{backgroundColor:'#FFF', color:'#000', padding:'20px'}}>
+          <Link href="/">Home Page1</Link> &nbsp; || &nbsp; 
+          <Link href="/client">Client Page2</Link> &nbsp; || &nbsp;           
+          <Link href="/server">Server Page3</Link> &nbsp; || &nbsp; 
+          <Link href="/test">404 Page</Link> &nbsp; || &nbsp; 
+        </div>
+        <hr style={{color:'black'}} />
         {children}
       </body>
     </html>
