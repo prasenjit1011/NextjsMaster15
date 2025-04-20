@@ -2,9 +2,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useUser } from "@/context/ClientContext";
 
 export default function Home() {
   const [userdata, setUserdata] = useState([]);
+  const { user, login, logout } = useUser();
 
   const loginBtn = () => {
     const loginData = {
@@ -21,7 +23,8 @@ export default function Home() {
     })
     .then((res) => res.json())
     .then((data) => {
-      console.log("Login success:", data);
+      console.log("Login successfully:", data);
+      login(data)
       setUserdata(data);
     })
     .catch((error) => {

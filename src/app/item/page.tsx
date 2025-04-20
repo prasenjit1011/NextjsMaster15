@@ -2,17 +2,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useUser } from "@/context/ClientContext";
 
 export default function Home() {
-
+  const { user, login, logout } = useUser();
   const [itemList, setItem] = useState([]);
+
+  if(user){
+    console.log('Cookie access_token : ', user?.access_token);
+  }
+
   useEffect(()=>{
     let apiUrl = 'http://localhost:3000/items';
     fetch(apiUrl, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdG5hbWUiOiJSaXlhbiIsImlhdCI6MTc0NTEzNTAxMywiZXhwIjoxNzQ1MTQxMDEzfQ.qcIREQug7mrNljjpEa0nm6s64NOVHmhVuPDC_haVWx8"
+        "Authorization": "Bearer "+user?.access_token
       },
       //body: JSON.stringify(loginData),
     })
