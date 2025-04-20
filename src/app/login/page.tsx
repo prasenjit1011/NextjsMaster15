@@ -1,11 +1,41 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
+  const [userdata, setUserdata] = useState([]);
+
+  const loginBtn = () => {
+    const loginData = {
+      "username": "Sanjay",
+      "password": "12345"
+    };
+    let apiUrl = "http://localhost:3000/auth/login";
+    fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(loginData),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Login success:", data);
+      setUserdata(data);
+    })
+    .catch((error) => {
+      console.error("Login error:", error);
+    });
+  }
+
+
+  console.log(userdata.firstname, userdata.rndInt);
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Link href="/">
+        <Link href="/" >
           <Image
             className="dark:invert"
             src="/next.svg"
@@ -16,7 +46,21 @@ export default function Home() {
           />
         </Link>
         <div className="flex gap-4 items-center flex-col sm:flex-row">
-        <h1>Home Page</h1>
+        <h1>Login Page</h1>
+          {userdata.firstname} = {userdata.rndInt}
+          <button type="button" onClick={loginBtn} className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto">
+            <Image
+              className="dark:invert"
+              src="/vercel.svg"
+              alt="Vercel logomark"
+              width={20}
+              height={20}
+            />
+            Login
+          </button>
+
+
+
         </div>
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           

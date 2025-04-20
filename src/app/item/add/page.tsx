@@ -16,7 +16,7 @@ export default function Home() {
           />
         </Link>
         <div className="flex gap-4 items-center flex-col sm:flex-row">
-        <h1>Home Page</h1>
+        <h1>Add Item Page</h1>
         </div>
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           

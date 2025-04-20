@@ -1,7 +1,33 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+
+  const [itemList, setItem] = useState([]);
+  useEffect(()=>{
+    let apiUrl = 'http://localhost:3000/items';
+    fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdG5hbWUiOiJSaXlhbiIsImlhdCI6MTc0NTEzNTAxMywiZXhwIjoxNzQ1MTQxMDEzfQ.qcIREQug7mrNljjpEa0nm6s64NOVHmhVuPDC_haVWx8"
+      },
+      //body: JSON.stringify(loginData),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Item Data:", data);
+      setItem(data);
+    })
+    .catch((error) => {
+      console.error("Login error:", error);
+    });
+  },[])
+
+
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
@@ -16,7 +42,20 @@ export default function Home() {
           />
         </Link>
         <div className="flex gap-4 items-center flex-col sm:flex-row">
-        <h1>Home Page</h1>
+          <h1>Item Listing Page</h1>
+        </div>
+        <div className="flex gap-4 items-center flex-col sm:flex-row">
+          
+          <table>
+            <tbody>
+              {
+                itemList.map((item, key)=>{
+                  return (<tr key={key}><td><h1 style={{color:'#fff'}}>{item.name}</h1></td></tr>)
+                })
+                
+              }
+            </tbody>
+          </table>
         </div>
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           
