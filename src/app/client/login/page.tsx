@@ -16,6 +16,7 @@ export default function Home() {
       <h1><u>Client Login Page</u></h1>    
       <h1>Welcome Client Side : {user ? user.name : "Guest"}</h1>
       <button
+          type="submit"
           onClick={() =>
             login({ name: "Prasenjit", email: "you@example.com" })
           }
