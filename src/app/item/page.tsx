@@ -3,10 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useUser } from "@/context/ClientContext";
+import { redirect } from "next/dist/server/api-utils";
+import { useRouter } from "next/navigation";
+import Cookies from 'js-cookie';
 
 export default function Home() {
   const { user, login, logout } = useUser();
   const [itemList, setItem] = useState([]);
+  const router = useRouter();
 
   if(user){
     console.log('Cookie access_token : ', user?.access_token);
@@ -14,18 +18,26 @@ export default function Home() {
 
   useEffect(()=>{
     let apiUrl = 'http://localhost:3000/items';
+    let access_token =  Cookies.get('access_token');
     fetch(apiUrl, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer "+user?.access_token
+        "Authorization": "Bearer "+access_token
       },
       //body: JSON.stringify(loginData),
     })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log("Item Data:", data);
-      setItem(data);
+    .then(async (res) => {
+      const status = res.status;
+      const data = await res.json();
+  
+      console.log("Status Code:", status);
+      if (status === 200) {
+        setItem(data);
+      } else {
+        router.push('/');
+        console.warn("Non-200 response", data);
+      }
     })
     .catch((error) => {
       console.error("Login error:", error);
@@ -56,7 +68,7 @@ export default function Home() {
             <tbody>
               {
                 itemList && itemList.map((item, key)=>{
-                  return (<tr key={key}><td><h1 style={{color:'#fff'}}>{item.name}</h1></td></tr>)
+                  return (<tr key={key}><td><h1 style={{color:'#F00'}}>{item.name}</h1></td></tr>)
                 })
                 
               }
@@ -65,7 +77,7 @@ export default function Home() {
         </div>
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           
-          <Link href="/login" className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto">
+          <Link href="/" className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto">
             <Image
               className="dark:invert"
               src="/vercel.svg"

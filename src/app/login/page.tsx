@@ -3,10 +3,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useUser } from "@/context/ClientContext";
+import Cookies from 'js-cookie';
 
-export default function Home() {
+
+export const saveToken = (token) => {
+  Cookies.set('access_token', token, { expires: 7 }); // 7 days
+};
+
+export const getToken = () => {
+  return Cookies.get('access_token');
+};
+
+export const removeToken = () => {
+  Cookies.remove('access_token');
+};
+
+
+export default function LoginPage() {
   const [userdata, setUserdata] = useState([]);
   const { user, login, logout } = useUser();
+
+  const logoutBtn = () => {
+    Cookies.remove('access_token');
+  }
 
   const loginBtn = () => {
     const loginData = {
@@ -24,7 +43,7 @@ export default function Home() {
     .then((res) => res.json())
     .then((data) => {
       console.log("Login successfully:", data);
-      login(data)
+      Cookies.set('access_token', data?.access_token, { expires: 7 });
       setUserdata(data);
     })
     .catch((error) => {
@@ -49,34 +68,30 @@ export default function Home() {
           />
         </Link>
         <div className="flex gap-4 items-center flex-col sm:flex-row">
-        <h1>Login Page</h1>
+          <h1>Login Page</h1>
           {userdata.firstname} = {userdata.rndInt}
           <button type="button" onClick={loginBtn} className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto">
             <Image
               className="dark:invert"
               src="/vercel.svg"
               alt="Vercel logomark"
+              data-cy="login-button"
               width={20}
               height={20}
             />
             Login
           </button>
-
-
-
-        </div>
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          
-          <Link href="/login" className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto">
+          <button type="button" onClick={logoutBtn} className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto">
             <Image
               className="dark:invert"
               src="/vercel.svg"
               alt="Vercel logomark"
+              data-cy="logout-button"
               width={20}
               height={20}
             />
-            Login Now
-          </Link>
+            Logout
+          </button>
           <Link href="/item" className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto">
             <Image
               className="dark:invert"
@@ -87,13 +102,9 @@ export default function Home() {
             />
             Item
           </Link>
-          <Link
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="/item/add"
-          >
-            Add Item
-          </Link>
         </div>
+
+        
       </main>
       
     </div>

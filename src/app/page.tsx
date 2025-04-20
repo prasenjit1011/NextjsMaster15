@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import LoginPage from "./login/page";
 
 export default function Home() {
   return (
@@ -19,7 +20,6 @@ export default function Home() {
         <h1>Home Page</h1>
         </div>
         <div className="flex gap-4 items-center flex-col sm:flex-row">
-          
           <Link href="/login" className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto">
             <Image
               className="dark:invert"
