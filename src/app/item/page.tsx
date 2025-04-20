@@ -55,7 +55,7 @@ export default function Home() {
           <table>
             <tbody>
               {
-                itemList.map((item, key)=>{
+                itemList && itemList.map((item, key)=>{
                   return (<tr key={key}><td><h1 style={{color:'#fff'}}>{item.name}</h1></td></tr>)
                 })
                 
