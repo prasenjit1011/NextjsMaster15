@@ -7,24 +7,36 @@ const socket = io('http://localhost:3000', {  // Ensure this URL is correct
   transports: ['websocket'],  // Enforce WebSocket transport for stability
 });
 
+// let socket: Socket;
+// if (!socket) {
+//   socket = io('http://localhost:3001', { transports: ['websocket'] });
+// }
+
 
 export const useSocket = (onMessage: (msg: string) => void) => {
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
+    console.log('==here01==')
     // Handle connection
     socket.on('connect', () => {
+    
+      console.log('==here 02==')
+
       setIsConnected(true);1
       console.log('Connected to WebSocket:', socket.id);
     });
 
     // Handle disconnection
     socket.on('disconnect', () => {
+
+      console.log('==here 02==')
+
       setIsConnected(false);
       console.log('Disconnected from WebSocket');
     });
 
-    // Handle incoming messages
+    //// Handle incoming messages
     socket.on('message', onMessage);
 
     // Clean up socket listeners on component unmount

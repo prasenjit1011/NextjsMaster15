@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useSocket } from './hooks/useSocket';
 
 export default function Home() {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState('Hello');
   const [messages, setMessages] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,7 +16,7 @@ export default function Home() {
   const handleSendMessage = () => {
     if (input.trim()) {
       sendMessage(input);
-      setInput('');
+      setInput('Hello'+(new Date).getMilliseconds());
     } else {
       setError('Please enter a valid message');
     }
