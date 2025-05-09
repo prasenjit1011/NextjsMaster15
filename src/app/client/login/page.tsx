@@ -1,15 +1,17 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/context/ClientContext";
-
+import { useEffect } from "react";
 
 export default function Home() {
   const router = useRouter();
   const { user, login, logout } = useUser();
 
-  if(user){
-    router.push('/client/dashboard');
-  }
+  useEffect(() => {
+    if (user) {
+      router.push("/client/dashboard");
+    }
+  }, [user]);
 
   return (
     <div style={{backgroundColor:'#FFF', color:'#000', padding:'20px'}}>
