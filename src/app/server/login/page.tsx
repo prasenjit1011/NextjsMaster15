@@ -14,8 +14,8 @@ export default function HomePage() {
             <h1><u>Server Login Page : {token || "Guest"}</u></h1>
             {
                 token 
-                    ? <button onClick={userLogout} className="btnA">Logout</button>
-                    : <button onClick={userLogin} className="btnA">Login</button>
+                    ? <button onClick={userLogout} className="btnA" style={{ cursor:"pointer", color:"#F00", border:"1px solid #000", padding:"0 5px", marginTop:"20px"}}>Logout</button>
+                    : <button onClick={userLogin} className="btnA" style={{ cursor:"pointer", color:"#00F", border:"1px solid #000", padding:"0 5px", marginTop:"20px"}}>Login</button>
             }
     </div>
     );
