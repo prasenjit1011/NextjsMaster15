@@ -12,7 +12,7 @@ export default async function EditUserPage({ params }: Props) {
   await connectDB();
   const user = await User.findById(params.id).lean();
 
-  if (!user) return <p>User not found</p>;
+  return <p>User not found</p>;
 }
 
 
