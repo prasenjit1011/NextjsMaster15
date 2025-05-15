@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Image from "next/image";
 import Link from "next/link";
+import { getUserFromToken } from '@/lib/auth';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,6 +25,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const user = getUserFromToken();
+
+
   return (
     <html lang="en">
       <body
@@ -39,8 +44,20 @@ export default function RootLayout({
           priority
         />
         <ol style={{marginLeft:"10px"}} className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
+        <li className="mb-2 tracking-[-.01em]">
             <Link href="/">Home Page</Link>
+          </li>
+          {
+            !user ?
+              <li className="mb-2 tracking-[-.01em]">
+                <Link href="/login">Login Page</Link>
+              </li> :
+              <li className="mb-2 tracking-[-.01em]">
+                <Link href="/login">Logout Page</Link>
+              </li>
+          }
+          <li className="mb-2 tracking-[-.01em]">
+            <Link href="/dashboard">Dashboard Page</Link>
           </li>
           <li className="mb-2 tracking-[-.01em]">
             <Link href="/users">User Listing Page</Link>
