@@ -1,4 +1,6 @@
 // app/users/new/page.tsx
+'use client';
+
 import { createUser } from './action';
 
 export default function CreateUserPage() {
