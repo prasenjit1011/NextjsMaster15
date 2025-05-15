@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Image from "next/image";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +29,26 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Image 
+          className="dark:invert"
+          src="/next.svg"
+          alt="Next.js logo"
+          width={180}
+          height={38}
+          style={{margin:"10px"}}
+          priority
+        />
+        <ol style={{marginLeft:"10px"}} className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
+          <li className="mb-2 tracking-[-.01em]">
+            <Link href="/">Home Page</Link>
+          </li>
+          <li className="mb-2 tracking-[-.01em]">
+            <Link href="/userlist">User Listing Page</Link>
+          </li>
+        </ol>
+        <div style={{margin:"10px"}}>
+          {children}
+        </div>
       </body>
     </html>
   );
