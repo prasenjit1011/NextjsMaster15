@@ -2,6 +2,7 @@
 
 import { connectDB } from '@/lib/db';
 import { User } from '@/models/User';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export async function createUser(formData: FormData) {
@@ -13,5 +14,5 @@ export async function createUser(formData: FormData) {
   await connectDB();
   await User.create({ name, email });
 
-  redirect('/users');
+  revalidatePath('/users');
 }
