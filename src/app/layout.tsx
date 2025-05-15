@@ -43,7 +43,10 @@ export default function RootLayout({
             <Link href="/">Home Page</Link>
           </li>
           <li className="mb-2 tracking-[-.01em]">
-            <Link href="/userlist">User Listing Page</Link>
+            <Link href="/users">User Listing Page</Link>
+          </li>
+          <li className="mb-2 tracking-[-.01em]">
+            <Link href="/users/add">Add User Page</Link>
           </li>
         </ol>
         <div style={{margin:"10px"}}>
