@@ -6,7 +6,6 @@ import { DeleteButton } from './delete-btn'; // Client component for delete
 export default async function HomePage() {
   const users = await getData();
 
-  console.log('userlist : ', users)
 
   return (
     <div className="p-6">
