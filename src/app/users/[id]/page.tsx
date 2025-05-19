@@ -14,7 +14,7 @@ export default async function EditUserPage({ params }: Props) {
   if (!user) return <p>User not found</p>;
 
   return (
-    <div className="p-6">
+    <>
       <h1 className="text-xl font-bold mb-4">Edit User</h1>
       <form action={updateUser} className="space-y-4">
         <input type="hidden" name="id" value={user._id.toString()} />
@@ -35,6 +35,6 @@ export default async function EditUserPage({ params }: Props) {
           Update
         </button>
       </form>
-    </div>
+    </>
   );
 }

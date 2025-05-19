@@ -3,7 +3,7 @@ import { createUser } from './action';
 
 export default function CreateUserPage() {
   return (
-    <div className="p-6">
+    <>
       <h1 className="text-xl font-bold mb-4">Create New User</h1>
       <form action={createUser} className="space-y-4">
         <input
@@ -23,6 +23,6 @@ export default function CreateUserPage() {
           Create
         </button>
       </form>
-    </div>
+    </>
   );
 }

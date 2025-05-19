@@ -9,7 +9,7 @@ export default async function HomePage() {
   console.log('userlist : ', users)
 
   return (
-    <div className="p-6">
+    <>
       <h1 className="text-xl font-bold mb-4">User List</h1>
       <ul>
         {users.map((user: any) => (
@@ -25,6 +25,6 @@ export default async function HomePage() {
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 }
