@@ -46,6 +46,12 @@ export default function Header({user}) {
       <li>
         <Link href="/blog" className="hover:text-blue-500 transition">Blog</Link>
       </li>
+      <li>
+        <Link href="/shop/food/biriyani" className="hover:text-blue-500 transition">Shop</Link>
+      </li>
+      <li>
+        <Link href="/contactus" className="hover:text-blue-500 transition">Contact Us</Link>
+      </li>
       {!user ? (
         <li>
           <Link href="/login" className="hover:text-blue-500 transition">Login</Link>

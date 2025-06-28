@@ -1,34 +1,30 @@
+import Link from "next/link";
+
 interface Post {
-    id: string
-    title: string
-    content: string
-  }
-   
-  // Next.js will invalidate the cache when a
-  // request comes in, at most once every 60 seconds.
-  export const revalidate = 60
-   
-  // We'll prerender only the params from `generateStaticParams` at build time.
-  // If a request comes in for a path that hasn't been generated,
-  // Next.js will server-render the page on-demand.
-  export const dynamicParams = true // or false, to 404 on unknown paths
-   
-  export async function generateStaticParams() {
-    const posts: Post[] = await fetch('https://jsonplaceholder.typicode.com/posts').then((res) => res.json())
-    return posts.map((post) => ({
-      id: String(post.id),
-    }))
-  }
-   
-  export default async function Page({params,}: {params: Promise<{ id: string }>}) {
-    const { id } = await params
-    const post: Post = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`).then(
-      (res) => res.json()
-    )
-    return (
-      <main>
-        <h1>{post.title}</h1>
-        <p>{post.body}</p>
-      </main>
-    )
-  }
+  id: number;
+  title: string;
+  body: string;
+}
+
+// ✅ Incremental Static Regeneration at fetch level
+export default async function Page({ params }: { params: { id: string } }) {
+  const post: Post = await fetch(
+    `https://jsonplaceholder.typicode.com/posts/${params.id}`,
+    {
+      next: { revalidate: 60 }, // ISR: revalidate this post every 60s
+    }
+  ).then((res) => res.json());
+
+  return (
+    <main className="max-w-2xl mx-auto px-4 py-8">
+      <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
+      <p className="text-gray-700">{post.body}</p>
+      <Link
+        href={`/blog`}
+        className="text-blue-600 hover:underline"
+      >
+        Read more
+      </Link>
+    </main>
+  );
+}

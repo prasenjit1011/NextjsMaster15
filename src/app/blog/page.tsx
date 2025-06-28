@@ -1,41 +1,45 @@
-import Link from "next/link"
+// app/blog/page.tsx
+import Link from "next/link";
+import { cache } from "react";
 
+// Optional: Type-safe post interface
 interface Post {
-    id: string
-    title: string
-    content: string
-  }
-   
-  // Next.js will invalidate the cache when a
-  // request comes in, at most once every 60 seconds.
-  export const revalidate = 60
-   
-  // We'll prerender only the params from `generateStaticParams` at build time.
-  // If a request comes in for a path that hasn't been generated,
-  // Next.js will server-render the page on-demand.
-  export const dynamicParams = true // or false, to 404 on unknown paths
-   
-  export default async function Page() {
-    
-    const posts: Post[] = await fetch('https://jsonplaceholder.typicode.com/posts').then((res) => res.json())
+  id: number;
+  title: string;
+  body: string;
+}
 
+// Revalidate every 60 seconds (ISR - Incremental Static Regeneration)
+export const revalidate = 60;
 
-    return (
-      <>
-        <h1 className="text-xl font-bold mb-4">Blog List</h1>
-        <ul>
-        {
-          posts.map((post, key)=>{
-            return <li>
-                    <p>{ post.title}</p>
-                    <p>{post.body}</p>
-                    <Link style={{color:"#00F"}} href={`/blog/${post.id}`}>Read more</Link>
-                    <br /><br />
-                  </li>
-          })
-        }
-        </ul>
-      </>
-    )
-  }
-   
+// Cache the fetch function (recommended for shared fetches in server components)
+const getPosts = cache(async (): Promise<Post[]> => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+    next: { revalidate: 60 }, // ISR at fetch level
+  });
+  return res.json();
+});
+
+export default async function BlogPage() {
+  const posts = await getPosts();
+
+  return (
+    <main className="max-w-3xl mx-auto px-4 py-6">
+      <h1 className="text-2xl font-bold mb-4">Blog List</h1>
+      <ul className="space-y-4">
+        {posts.map((post) => (
+          <li key={post.id} className="border-b pb-4">
+            <h2 className="text-lg font-semibold">{post.title}</h2>
+            <p className="text-gray-700">{post.body}</p>
+            <Link
+              href={`/blog/${post.id}`}
+              className="text-blue-600 hover:underline"
+            >
+              Read more
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </main>
+  );
+}
